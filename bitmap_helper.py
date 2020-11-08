@@ -6,7 +6,7 @@ def create_header(width, height):
     reserved_1 = 0
     reserved_2 = 0
     pixel_data_offset = 62
-    file_size = pixel_data_offset + 3 * width * height
+    file_size = pixel_data_offset + 1 * width * height
     return pack('<HLHHL', file_type, file_size, reserved_1, reserved_2, pixel_data_offset)
 
 
@@ -43,7 +43,7 @@ def create_pixel_data(pixels):
     return pixel_data
 
 
-def create_monocrome_bitmap(file_name, pixels, width, height):
+def create_monochrome_bitmap(file_name, pixels, width, height):
     with open(file_name, 'wb') as f:
         f.write(create_header(width, height))
         f.write(create_info_header(width, height))
@@ -58,4 +58,4 @@ if __name__ == "__main__":
            1, 0, 0, 1,
            1, 1, 1, 1,
            1, 0, 0, 1]
-    create_monocrome_bitmap('test.bmp', pix, 4, 4)
+    create_monochrome_bitmap('test.bmp', pix, 4, 4)

@@ -32,4 +32,4 @@ img.close()
 
 # Write bitmap
 file_name = 'plot_bitmap.bmp'
-bitmap_helper.create_monocrome_bitmap(file_name, all_pixels, width, height)
+bitmap_helper.create_monochrome_bitmap(file_name, all_pixels, width, height)
