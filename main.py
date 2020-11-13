@@ -19,13 +19,13 @@ img = Image.open('plot.png').rotate(90)
 
 pixels = img.load()
 width, height = img.size
-print(width, height)
 
+threshold = 127
 all_pixels = []
 for x in range(width):
     for y in range(height):
         _pix = pixels[x, y]
-        mono_pix = 1 if round(sum(_pix)/float(len(_pix))) > 127 else 0
+        mono_pix = 1 if round(sum(_pix)/float(len(_pix))) > threshold else 0
         all_pixels.append(mono_pix)
 
 img.close()

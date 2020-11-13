@@ -7,7 +7,7 @@ def create_header(width, height):
     reserved_2 = 0
     pixel_data_offset = 62
     file_size = pixel_data_offset + 1 * width * height
-    return pack('<HLHHL', file_type, file_size, reserved_1, reserved_2, pixel_data_offset)
+    return pack('<HL2HL', file_type, file_size, reserved_1, reserved_2, pixel_data_offset)
 
 
 def create_info_header(width, height):
@@ -22,7 +22,7 @@ def create_info_header(width, height):
     y_pixels_per_meter = 0
     total_colors = 0
     important_colors = 0
-    return pack('<LLLHHLLLLLL', header_size,
+    return pack('<3L2H6L', header_size,
                 image_width, image_height,
                 planes, bits_per_pixel,
                 compression, image_size,
@@ -33,13 +33,12 @@ def create_info_header(width, height):
 def create_color_pallet():
     color_0 = (0, 0, 0, 0)
     color_1 = (255, 255, 255, 0)
-    return pack('<BBBBBBBB', *color_0, *color_1)
+    return pack('<8B', *color_0, *color_1)
 
 
 def create_pixel_data(pixels):
-    pixel_data = b''
-    for px in reversed(pixels):
-        pixel_data += pack('<B', px)
+    pixels.reverse()
+    pixel_data = pack(f'<{len(pixels)}B', *pixels)
     return pixel_data
 
 
@@ -51,7 +50,7 @@ def create_monochrome_bitmap(file_name, pixels, width, height):
         f.write(create_pixel_data(pixels))
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     width = 4
     height = 4
     pix = [0, 1, 1, 0,
