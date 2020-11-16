@@ -7,7 +7,8 @@ def create_header(width, height):
     reserved_2 = 0
     pixel_data_offset = 62
     file_size = pixel_data_offset + 1 * width * height
-    return pack('<HL2HL', file_type, file_size, reserved_1, reserved_2, pixel_data_offset)
+    return pack('<HL2HL', file_type, file_size,
+                reserved_1, reserved_2, pixel_data_offset)
 
 
 def create_info_header(width, height):
